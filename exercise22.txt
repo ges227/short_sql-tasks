@@ -1,0 +1,17 @@
+Results:
+The final pogram can be found in exercise22.py.
+It takes for input a user supplied organism name.
+
+
+Method:
+The program imports sys and everything from model, the module which defines the database to be used, and the Taxonomy and Name tables as classes.
+The program reads the input into the variable "inputname" as a string, printing out an error message and exiting the program if no input has been given.
+The program then uses the selectBy method to pass this name string as the value to the "name" keyword of the class Name. This finds the rows in the Name table that have for value in their name column, the string inside "input name". As this returns a list of rows, the program saves just the first one. If no Name row could be found in the Name table, attempting to access the first item will yield an index error, which the program catches, printing out a line that states that the user-supplied name is not found in the database. The program would then stop running.
+From the found Name record, the program can then access the corresponding Taxonomy record row using ".taxonomy", because this foreign key has been assigned. This taxonomy record is saved in the variable "t". 
+The scientific name is saved in the Taxonomy object as an attribute,  that can be accessed using ".scientific_name". The program thus outputs a print line stating this name.
+
+
+Evaluations:
+
+-The program checks that an input is given.
+-the program assumes that the first row obtained from the search through the Names table contains the correct corresponding information.

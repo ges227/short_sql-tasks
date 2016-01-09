@@ -1,0 +1,11 @@
+Results:
+The final program is found in "exercise21.py". It imports the sqlite3 module to run the sql program and takes the organism name as a command-line input argument.
+
+Method:
+
+The program first makes sure that the necessary command-line argument was given the program call. It then puts it into list format, to be able to pass it into the sql call. The program connects to the taxa.db3 database using the sqlite3 connector, and creates the cursor "c". The sql call searches through both the taxonomy and the data tables at the same time, to find the row in the name table that has a name attribute equal to the one input by the user, and the corresponding row in the taxonomy table that has a tax_id attribute equal to the tax_id attribute in the name table, which will be singled out for that input name.
+Because sql call searches through taxonomy and then name, the taxonomy table's columns are the first data points in the "tuple" data type contained in each row that results after executing the sql call. The scientific name is thus in the second position in this row, and it is printed out.
+
+Evaluations:
+The program may print out multiple scientific names for generic names
+The program is efficient in looking through the two tables in one call.

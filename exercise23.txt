@@ -1,0 +1,20 @@
+Results: the final program is found in exercise23.py It takes for input the user-supplied organism name.
+
+Method:
+
+The program imports sys for user-supplied input, and imports everything from model2, the module containing the definition of the database to be used and its tables as classes. Here, the program assumes that the programs loading the taxa and name tables and fixing the taxa table have already been ran.It then calles the initialization function to create the object of those classes to be used in the program.
+The program reads the input into the variable "inputname" as a string, printing out an error message and exiting the program if no input has been given.
+As in exercise 22, the program then uses the selectBy method to pass this name string as the value to the "name" keyword of the class Name. This finds the rows in the Name table that have for value in their name column, the string inside "input name". As this returns a list of rows, the program saves just the first one. If no Name row could be found in the Name table, attempting to access the first item will yield an index error, which the program catches, printing out a line that states that the user-supplied name is not found in the database. The program would then stop running.
+From the found Name record, the program can then access the corresponding Taxonomy record row using ".taxonomy", because this foreign key has been assigned. This taxonomy record is saved in the variable "t". The scientific name is saved in the Taxonomy object as an attribute,  that can be accessed using ".scientific_name". The program thus outputs a print line stating this name.
+In the program, I define a recursive function called "findchildren", that takes as input a taxonomy object. The function iterates through each of this object's children, printing out the child's name and rank, then calling itself again on the current child. This will be used to output the lower level lineage of the organism in question.
+The program assigns the taxonomy row to a temporary value "r" for row, as done in the lecture example. 
+This variable is passed in the function "findchildren" to output the lower level lineage.
+The program then outputs the upper level lineage, using a while loop. The stop condition is that the current taxonomy object, "r", isn't equal to its parent, which is the case for the root of the taxonomy table/tree. While this is not true, the program prints out the current taxonomy object's scientific name and rank, then assigns that object's parent, "r.parent", back to r, and repeats the print step.  
+
+Evaluation:
+>As stated in the method description, the program assumes that the programs loading the taxa and name tables and fixing the taxa table have already been ran. If they haven't there will be no data when this program tries to access it.
+>The name that the program takes in doesn't have to be the scientific name. 
+>Because the program uses a recursive function, it outputs all the children from all lower level generations. If the user-supplied name was that of a very high taxonomy such as kingdom or phylum, the program would take a long time.
+>Because the recursive function is only called as the program iterates through the values in r.children, if there are no values there, the iteration will not happen, keeping the recursion from going through an infinite loop. 
+
+
